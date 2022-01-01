@@ -1,5 +1,5 @@
 # the-world-engine-examples
- simple game scenes using the-world-engine
+ simple game scenes using [the-world-engine](https://github.com/The-World-Space/the-world-engine.ts)
 
 
 
