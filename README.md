@@ -4,5 +4,5 @@
 
 
 - no-framework - it just use typescript and webpack to build and run
-- react - it show how mount game view to react component
+- react - it show how to mount game view to react component
 
