@@ -4,7 +4,8 @@
   "description": "simple game scenes using the-world-engine ",
   "scripts": {
     "start": "webpack serve --mode development",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
