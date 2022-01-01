@@ -12,7 +12,7 @@ import { PlayerPrefab } from "./prefab/PlayerPrefab";
 import { SansFightRoomPrefab } from "./prefab/SansFightRoomPrefab";
 
 export class TestGameBootstrapper extends Bootstrapper {
-    run(): SceneBuilder {
+    public run(): SceneBuilder {
         const instantlater = this.engine.instantlater;
         
         const colideTilemapChunkRenderer = new PrefabRef<CssCollideTilemapChunkRenderer>();

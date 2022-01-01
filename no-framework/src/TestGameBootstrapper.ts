@@ -8,7 +8,7 @@ import { Vector3 } from "three";
 import { Rotator } from "./script/Rotator";
 
 export class TestGameBootstrapper extends Bootstrapper {
-    run(): SceneBuilder {
+    public run(): SceneBuilder {
         const instantlater = this.engine.instantlater;
         
         return this.sceneBuilder
