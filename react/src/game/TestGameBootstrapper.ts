@@ -9,15 +9,15 @@ import { Rotator } from "./script/Rotator";
 
 export class TestGameBootstrapper extends Bootstrapper {
     public run(): SceneBuilder {
-        const instantlater = this.engine.instantlater;
+        const instantiater = this.engine.instantiater;
         
         return this.sceneBuilder
-            .withChild(instantlater.buildGameObject("camera", new Vector3(0, 0, 10))
+            .withChild(instantiater.buildGameObject("camera", new Vector3(0, 0, 10))
                 .withComponent(Camera, c => {
                     c.viewSize = 100;
                 }))
 
-            .withChild(instantlater.buildGameObject("test_object")
+            .withChild(instantiater.buildGameObject("test_object")
                 .withComponent(CssSpriteRenderer)
                 .withComponent(Rotator));
     }

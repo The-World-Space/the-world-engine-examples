@@ -5,7 +5,7 @@ export class Rotator extends Component {
 
     public update() {
         this._accumulatedTime += this.engine.time.deltaTime;
-        this.gameObject.transform.position.x = Math.sin(this._accumulatedTime) * 30;
-        this.gameObject.transform.position.y = Math.cos(this._accumulatedTime) * 30;
+        this.transform.position.x = Math.sin(this._accumulatedTime) * 30;
+        this.transform.position.y = Math.cos(this._accumulatedTime) * 30;
     }
 }
