@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/three": "^0.137.0",
-    "the-world-engine": "^0.2.11",
-    "three": "^0.137.0"
+    "the-world-engine": "^0.2.14",
+    "three": "^0.137.5"
   }
 }
