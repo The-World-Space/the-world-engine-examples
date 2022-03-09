@@ -13,7 +13,7 @@ import { SansFightRoomPrefab } from "./prefab/SansFightRoomPrefab";
 
 export class TestGameBootstrapper extends Bootstrapper {
     public run(): SceneBuilder {
-        const instantiater = this.engine.instantiater;
+        const instantiater = this.instantiater;
         
         const colideTilemapChunkRenderer = new PrefabRef<CssCollideTilemapChunkRenderer>();
         const collideMap = new PrefabRef<GridObjectCollideMap>();

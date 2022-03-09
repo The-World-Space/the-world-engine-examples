@@ -30,8 +30,8 @@
     "webpack-dev-server": "^4.7.2"
   },
   "dependencies": {
-    "@types/three": "^0.137.0",
-    "the-world-engine": "^0.2.17",
-    "three": "^0.137.5"
+    "@types/three": "^0.138.0",
+    "the-world-engine": "^0.3.1",
+    "three": "^0.138.3"
   }
 }

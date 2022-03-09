@@ -1,5 +1,5 @@
 import { Vector2 } from "three";
-import { TrackCameraController, Camera, GameObject, GameObjectBuilder, Prefab, PrefabRef, Color } from "the-world-engine";
+import { TrackCameraController, Camera, GameObject, GameObjectBuilder, Prefab, PrefabRef, Color, CameraType } from "the-world-engine";
 
 export class CameraPrefab extends Prefab {
     private _trackTarget = new PrefabRef<GameObject>();
@@ -13,10 +13,12 @@ export class CameraPrefab extends Prefab {
         return this.gameObjectBuilder
             .withComponent(Camera, c => {
                 c.backgroundColor = new Color(0, 0, 0, 1);
+                c.viewSize = 8;
+                c.cameraType = CameraType.Orthographic;
             })
             .withComponent(TrackCameraController, c => {
                 c.setTrackTarget(this._trackTarget.ref!);
-                c.targetOffset = new Vector2(0, 32);
+                c.targetOffset = new Vector2(0, 3);
             });
     }
 }

@@ -32,6 +32,9 @@ export class PlayerPrefab extends Prefab {
                 c.asyncSetImage(HeewonSpriteAtlas, 4, 4);
                 c.centerOffset = new Vector2(0, 0.4);
                 c.pointerEvents = false;
+                c.viewScale = 1;
+                c.imageWidth = 1;
+                c.imageHeight = 2;
             })
             .withComponent(SpriteAtlasAnimator, c => {
                 c.addAnimation("down_idle", [0]);
@@ -62,7 +65,7 @@ export class PlayerPrefab extends Prefab {
             .withComponent(MovementAnimationController)
             .withComponent(ZaxisSorter, c => {
                 c.runOnce = false;
-                c.offset = 1;
+                c.offset = 0.1;
             });
     }
 }

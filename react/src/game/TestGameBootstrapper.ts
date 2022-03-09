@@ -9,12 +9,12 @@ import { Rotator } from "./script/Rotator";
 
 export class TestGameBootstrapper extends Bootstrapper {
     public run(): SceneBuilder {
-        const instantiater = this.engine.instantiater;
+        const instantiater = this.instantiater;
         
         return this.sceneBuilder
             .withChild(instantiater.buildGameObject("camera", new Vector3(0, 0, 10))
                 .withComponent(Camera, c => {
-                    c.viewSize = 100;
+                    c.viewSize = 5;
                 }))
 
             .withChild(instantiater.buildGameObject("test_object")
