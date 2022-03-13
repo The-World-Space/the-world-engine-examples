@@ -61,6 +61,7 @@ export class PlayerPrefab extends Prefab {
                 }
                 
                 if (this._gridPosition.ref) c.initPosition = this._gridPosition.ref;
+                c.speed = 5;
             })
             .withComponent(MovementAnimationController)
             .withComponent(ZaxisSorter, c => {
