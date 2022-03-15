@@ -6,7 +6,7 @@ import {
     PrefabRef,
     SceneBuilder
 } from "the-world-engine";
-import { Vector2 } from "three";
+import { Vector2 } from "three/src/Three";
 import { CameraPrefab } from "./prefab/CameraPrefab";
 import { PlayerPrefab } from "./prefab/PlayerPrefab";
 import { SansFightRoomPrefab } from "./prefab/SansFightRoomPrefab";

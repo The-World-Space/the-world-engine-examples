@@ -1,4 +1,4 @@
-import { Vector2 } from "three";
+import { Vector2 } from "three/src/Three";
 import { TrackCameraController, Camera, GameObject, GameObjectBuilder, Prefab, PrefabRef, Color, CameraType } from "the-world-engine";
 
 export class CameraPrefab extends Prefab {
