@@ -4,7 +4,7 @@ import {
     CssSpriteRenderer,
     SceneBuilder
 } from "the-world-engine";
-import { Vector3 } from "three";
+import { Vector3 } from "three/src/Three";
 import { Rotator } from "./script/Rotator";
 
 export class TestGameBootstrapper extends Bootstrapper {
