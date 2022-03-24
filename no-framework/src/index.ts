@@ -1,5 +1,5 @@
 import { Game } from "the-world-engine";
-import { TestGameBootstrapper } from "./TestGameBootstrapper";
+import { TestGameBootstrapper } from "./asset/TestGameBootstrapper";
 
 function startTestGame(container: HTMLElement) {
     const game = new Game(container);
