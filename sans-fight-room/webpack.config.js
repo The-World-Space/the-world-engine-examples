@@ -1,24 +1,24 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ESLintPlugin = require('eslint-webpack-plugin');
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.ts",
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js",
-        assetModuleFilename: 'images/[name][ext]',
+        assetModuleFilename: "images/[name][ext]",
     },
     module: {
         rules: [{
                 test: /\.tsx?$/,
                 use: [{
-                    loader: 'ts-loader'
+                    loader: "ts-loader"
                 }]
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                type: 'asset',
+                type: "asset",
             }
         ],
     },
@@ -31,7 +31,7 @@ module.exports = {
             template: "./src/index.html",
         }),
         new ESLintPlugin({
-            extensions: 'ts',
+            extensions: "ts",
         }),
     ],
     devServer: {
