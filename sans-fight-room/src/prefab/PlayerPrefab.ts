@@ -29,7 +29,7 @@ export class PlayerPrefab extends Prefab {
     public make(): GameObjectBuilder {
         return this.gameObjectBuilder
             .withComponent(CssSpriteAtlasRenderer, c => {
-                c.asyncSetImage(HeewonSpriteAtlas, 4, 4);
+                c.asyncSetImageFromPath(HeewonSpriteAtlas, 4, 4);
                 c.centerOffset = new Vector2(0, 0.4);
                 c.pointerEvents = false;
                 c.viewScale = 1;
