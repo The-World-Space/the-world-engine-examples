@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { Game } from "the-world-engine";
+//import { useEffect, useRef, useState } from "react";
+//import { Game } from "the-world-engine";
 import "./App.css";
 import { TestGameBootstrapper } from "./game/TestGameBootstrapper";
+import { Game } from "the-world-engine-react";
 
 function App(): JSX.Element {
+    /*
     const div = useRef<HTMLDivElement>(null);
     const [game, setGame] = useState<Game|null>(null);
 
@@ -29,6 +31,9 @@ function App(): JSX.Element {
     }, [div]);
 
     return (<div className="App" ref={div}/>);
+    */
+
+    return <Game bootstrapper={TestGameBootstrapper} />;
 }
 
 export default App;
