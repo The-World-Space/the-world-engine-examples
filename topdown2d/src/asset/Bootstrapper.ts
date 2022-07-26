@@ -32,6 +32,7 @@ export class Bootstrapper extends BaseBootstrapper {
                     .withChild(instantiater.buildGameObject("background")
                         .withComponent(CssTilemapChunkRenderer, c => {
                             c.chunkSize = 15;
+                            c.filter.brightness = 1.5;
 
                             AsyncImageLoader.loadImageFromPath(OverworldTileset).then(image => {
                                 c.imageSources = [ new TileAtlasItem(image, 18, 13) ];
@@ -58,10 +59,7 @@ export class Bootstrapper extends BaseBootstrapper {
                                     ), 0, 0
                                 );
                             });
-                        })
-                    )
-                )
-            )
+                        }))))
         ;
     }
 }
