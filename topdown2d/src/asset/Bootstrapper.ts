@@ -152,6 +152,58 @@ export class Bootstrapper extends BaseBootstrapper {
                                 if (!c.exists) return;
 
                                 c.imageSources = [ new TileAtlasItem(image, 18, 13) ];
+
+                                function f(a: number): { i: 0; a: number; } {
+                                    return { i: 0, a: a };
+                                }
+
+                                const converter = {
+                                    /* eslint-disable @typescript-eslint/naming-convention */
+                                    //rock
+                                    "o": () => f(93),
+                                    "O": () => f(94),
+                                    //sign
+                                    "#": () => f(61),
+                                    //stump
+                                    "@": () => f(75),
+                                    "$": () => f(76),
+                                    //bush
+                                    "*": () => f(58),
+                                    "^": () => f(59),
+
+                                    " ": () => null
+                                    /* eslint-enable @typescript-eslint/naming-convention */
+                                };
+
+                                c.drawTileFromTwoDimensionalArray(
+                                    TwoDimensionalStringMapper.map(
+                                        [
+                                            "              ",
+                                            "   $          ",
+                                            "    #         ",
+                                            "              ",
+                                            "              "
+                                        ],
+                                        converter
+                                    ),
+                                    -3, 4
+                                );
+                                
+                                c.drawTileFromTwoDimensionalArray(
+                                    TwoDimensionalStringMapper.map(
+                                        [
+                                            "             ",
+                                            "          o  ",
+                                            "         @   ",
+                                            "     #       ",
+                                            "             ",
+                                            "             ",
+                                            "O            "
+                                        ],
+                                        converter
+                                    ),
+                                    -7, -8
+                                );
                             });
                         })
                         .withComponent(CssTilemapChunkRenderer, c => {
@@ -244,6 +296,64 @@ export class Bootstrapper extends BaseBootstrapper {
                                     ),
                                     -5, -15
                                 );
+
+                                const foliageConverter = {
+                                    /* eslint-disable @typescript-eslint/naming-convention */
+                                    //grass
+                                    "^": () => f(56),
+                                    "%": () => f(57),
+                                    //flower
+                                    "*": () => f(72),
+                                    "&": () => f(73),
+                                    "!": () => f(90),
+                                    "~": () => f(91),
+                                    //rock
+                                    "o": () => f(74),
+                                    "O": () => f(92),
+
+                                    " ": () => null
+                                    /* eslint-enable @typescript-eslint/naming-convention */
+                                };
+                                
+                                c.drawTileFromTwoDimensionalArray(
+                                    TwoDimensionalStringMapper.map(
+                                        [
+                                            "     ^",
+                                            "",
+                                            "^ %  ~*"
+                                        ],
+                                        foliageConverter
+                                    ),
+                                    3, 4
+                                );
+
+                                c.drawTileFromTwoDimensionalArray(
+                                    TwoDimensionalStringMapper.map(
+                                        [
+                                            "O%    ^",
+                                            " ^",
+                                            "",
+                                            "^  %"
+                                        ],
+                                        foliageConverter
+                                    ),
+                                    1, -1
+                                );
+
+                                c.drawTileFromTwoDimensionalArray(
+                                    TwoDimensionalStringMapper.map(
+                                        [
+                                            "%     ^",
+                                            " ",
+                                            "      *~",
+                                            "    % !~",
+                                            "     !**",
+                                            "o   !**~"
+                                        ],
+                                        foliageConverter
+                                    ),
+                                    -2, -8
+                                );
                             });
                         })
                         .getComponent(CssCollideTilemapChunkRenderer, collideTilemap2))
@@ -319,7 +429,19 @@ export class Bootstrapper extends BaseBootstrapper {
                     .withChild(instantiater.buildPrefab("tree1", Tree1Prefab, new Vector3(0, 2, 0))
                         .withObjectCollideMap(objectCollideMap).make())
 
+                    .withChild(instantiater.buildPrefab("tree1", Tree1Prefab, new Vector3(-5, 2, 0))
+                        .withObjectCollideMap(objectCollideMap).make())
+
+                    .withChild(instantiater.buildPrefab("tree1", Tree1Prefab, new Vector3(-7, 3, 0))
+                        .withObjectCollideMap(objectCollideMap).make())
+
                     .withChild(instantiater.buildPrefab("tree2", Tree2Prefab, new Vector3(2, -1, 0))
+                        .withObjectCollideMap(objectCollideMap).make())
+
+                    .withChild(instantiater.buildPrefab("tree2", Tree2Prefab, new Vector3(9, 7, 0))
+                        .withObjectCollideMap(objectCollideMap).make())
+                    
+                    .withChild(instantiater.buildPrefab("tree2", Tree2Prefab, new Vector3(10, 6, 0))
                         .withObjectCollideMap(objectCollideMap).make())
 
                     .withChild(instantiater.buildPrefab("house1", House1Prefab, new Vector3(5, 6, 0))
