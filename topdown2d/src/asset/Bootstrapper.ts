@@ -54,12 +54,10 @@ export class Bootstrapper extends BaseBootstrapper {
                         .getCollideTilemap(collideTilemap2).make())
 
                     .withChild(instantiater.buildGameObject("test")
-                        .active(false)
+                        .active(true)
                         .withComponent(CssTilemapChunkRenderer, c => {
                             c.chunkSize = 15;
                             c.filter.brightness = 1.5;
-                            c.tileResolutionX = 16 << 1;
-                            c.tileResolutionY = 16 << 1;
 
                             AsyncImageLoader.loadImageFromPath(OverworldTileset).then(image => {
                                 if (!c.exists) return;
@@ -70,17 +68,6 @@ export class Bootstrapper extends BaseBootstrapper {
                                     return { i: 0, a: a };
                                 }
 
-                                // const converter = {
-                                //     /* eslint-disable @typescript-eslint/naming-convention */
-                                //     "0": () => f(0),
-                                //     "1": () => f(1),
-                                //     "2": () => f(2),
-                                //     "3": () => f(3),
-                                //     "4": () => f(4),
-                                //     "5": () => f(5)
-                                //     /* eslint-enable @typescript-eslint/naming-convention */
-                                // };
-
                                 const array2d: { i: 0; a: number; }[][] = [];
                                 for (let i = 0; i < 13; i++) {
                                     array2d[i] = [];
@@ -89,10 +76,7 @@ export class Bootstrapper extends BaseBootstrapper {
                                     }
                                 }
 
-                                c.drawTileFromTwoDimensionalArray(
-                                    array2d,
-                                    0, 0
-                                );
+                                c.drawTileFromTwoDimensionalArray(array2d, 0, 0);
                             });
                         })
                         .withComponent(DrawIndex, c => {
