@@ -7,7 +7,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js",
-        assetModuleFilename: "assets/[name][ext]",
+        assetModuleFilename: "assets/[name][ext]"
     },
     module: {
         rules: [{
@@ -18,13 +18,13 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                type: "asset",
+                type: "asset"
             }
-        ],
+        ]
     },
     resolve: {
         modules: [path.join(__dirname, "src"), "node_modules"],
-        extensions: [".ts", ".js"],
+        extensions: [".ts", ".js"]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -32,11 +32,11 @@ module.exports = {
         }),
         new ESLintPlugin({
             extensions: "ts",
-        }),
+        })
     ],
     devServer: {
         host: "localhost",
-        port: 5500,
+        port: 5500
     },
-    mode: "development",
+    mode: "development"
 };
