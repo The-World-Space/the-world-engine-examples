@@ -56,11 +56,11 @@ export class DialogController extends Component {
     private *showTextAnimation(text: string, duration: number): CoroutineIterator {
         let currentTime = 0;
         while (currentTime < duration) {
-            this._dialogUi!.element!.innerText = text.substring(0, Math.floor(currentTime / duration * text.length));
+            this._dialogUi!.element!.firstChild!.textContent = text.substring(0, Math.floor(currentTime / duration * text.length));
             yield null;
             currentTime += this.engine.time.deltaTime;
         }
-        this._dialogUi!.element!.innerText = text;
+        this._dialogUi!.element!.firstChild!.textContent = text;
     }
 
     private showUi(): void {
@@ -70,7 +70,7 @@ export class DialogController extends Component {
         if (this._transitionCoroutine) this.stopCoroutine(this._transitionCoroutine);
         
         this.startCoroutine(this.getViewSize((viewSize: number) => {
-            this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-viewSize - 4.5));
+            this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-viewSize + 1.5));
         }));
     }
 
@@ -81,7 +81,7 @@ export class DialogController extends Component {
         if (this._transitionCoroutine) this.stopCoroutine(this._transitionCoroutine);
 
         this.startCoroutine(this.getViewSize((viewSize: number) => {
-            this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-viewSize - 11));
+            this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-viewSize - 1.5));
         }));
     }
 
@@ -93,10 +93,10 @@ export class DialogController extends Component {
     private *moveUiAnim(targetY: number): CoroutineIterator {
         let currentTime = 0;
         while (currentTime < 1) {
-            this.transform.position.y = MathUtils.damp(this.transform.position.y, targetY, 1, currentTime);
+            this.transform.localPosition.y = MathUtils.damp(this.transform.localPosition.y, targetY, 4, currentTime);
             yield null;
             currentTime += this.engine.time.deltaTime;
         }
-        this.transform.position.y = targetY;
+        this.transform.localPosition.y = targetY;
     }
 }

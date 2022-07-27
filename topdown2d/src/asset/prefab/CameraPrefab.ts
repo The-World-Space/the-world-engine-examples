@@ -58,6 +58,12 @@ export class CameraPrefab extends Prefab {
                     div.style.boxSizing = "border-box";
                     div.textContent = "";
 
+                    const textAreaDiv = document.createElement("div");
+                    div.style.width = "100%";
+                    div.style.height = "100%";
+                    div.style.position = "absolute";
+                    div.appendChild(textAreaDiv);
+
                     const css = document.createElement("style");
                     css.textContent = `
                         @keyframes blink {
@@ -69,7 +75,7 @@ export class CameraPrefab extends Prefab {
                     const animatedDiv = document.createElement("div");
                     animatedDiv.style.fontSize = "4px";
                     animatedDiv.style.color = "white";
-                    animatedDiv.style.position = "relative";
+                    animatedDiv.style.position = "absolute";
                     animatedDiv.style.bottom = "2px";
                     animatedDiv.style.right = "3px";
                     animatedDiv.textContent = "◀";

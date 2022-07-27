@@ -96,9 +96,33 @@ export class Bootstrapper extends BaseBootstrapper {
                 
                 .withChild(instantiater.buildGameObject("event")
                     .withComponent(GridEventMap, c => {
-                        c.showEvents = true;
+                        c.showEvents = false;
+                        c.addEvent(0, -2, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("Press E to interact with the object.");
+                        });
+
                         c.addEvent(-2, -5, () => {
-                            if (dialogController.ref) dialogController.ref.showMessage("Hello World!");
+                            if (dialogController.ref) dialogController.ref.showMessage("john's house");
+                        });
+
+                        c.addEvent(-4, -4, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("door is locked");
+                        });
+
+                        c.addEvent(2, -4, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("a stump");
+                        });
+
+                        c.addEvent(4, 1, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("The campfire is warm");
+                        });
+
+                        c.addEvent(1, 6, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit,");
+                        });
+
+                        c.addEvent(4, 7, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("door is locked");
                         });
                     })
                     .getComponent(GridEventMap, gridEventMap))
