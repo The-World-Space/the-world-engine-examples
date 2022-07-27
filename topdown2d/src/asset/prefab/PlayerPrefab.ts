@@ -1,9 +1,11 @@
 import {
     CssSpriteAtlasRenderer,
     GameObjectBuilder,
+    GridEventMap,
     GridPointer,
     IGridCollidable,
     MovementAnimationController,
+    PlayerGridEventInvoker,
     PlayerGridMovementController,
     Prefab,
     PrefabRef,
@@ -13,11 +15,13 @@ import {
 } from "the-world-engine";
 
 import CharSpriteSheet from "../image/Char_Sprites/char_spritesheet.png";
+import { PlayerGridInteractionInvoker } from "../script/PlayerGridInteractionInvoker";
 
 export class PlayerPrefab extends Prefab {
     private readonly _collideMaps: PrefabRef<IGridCollidable>[] = [];
     private _gridPointer = new PrefabRef<GridPointer>();
     private _gridPosition = new PrefabRef<ReadonlyVector2>();
+    private _gridEventMap = new PrefabRef<GridEventMap>();
 
     public withCollideMap(collideMap: PrefabRef<IGridCollidable>): this {
         this._collideMaps.push(collideMap);
@@ -31,6 +35,11 @@ export class PlayerPrefab extends Prefab {
 
     public withGridPosition(position: PrefabRef<ReadonlyVector2>): this {
         this._gridPosition = position;
+        return this;
+    }
+
+    public withGridEventMap(eventMap: PrefabRef<GridEventMap>): this {
+        this._gridEventMap = eventMap;
         return this;
     }
 
@@ -92,6 +101,12 @@ export class PlayerPrefab extends Prefab {
                 if (this._gridPosition.ref) c.initPosition = this._gridPosition.ref;
             })
             .withComponent(MovementAnimationController)
+            .withComponent(PlayerGridEventInvoker, c => {
+                if (this._gridEventMap.ref) c.addGridEventMap(this._gridEventMap.ref);
+            })
+            .withComponent(PlayerGridInteractionInvoker, c => {
+                if (this._gridEventMap.ref) c.addGridEventMap(this._gridEventMap.ref);
+            })
             .withComponent(ZaxisSorter, c => {
                 c.runOnce = false;
                 c.offset = 0.5;

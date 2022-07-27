@@ -6,6 +6,7 @@ import {
     CssTilemapChunkRenderer,
     GameObject,
     GridCollideMap,
+    GridEventMap,
     GridObjectCollideMap,
     GridPointer,
     PointerGridInputListener,
@@ -40,6 +41,7 @@ export class Bootstrapper extends BaseBootstrapper {
         const objectCollideMap = new PrefabRef<GridObjectCollideMap>();
         const collideTilemap = new PrefabRef<CssCollideTilemapChunkRenderer>();
         const collideTilemap2 = new PrefabRef<CssCollideTilemapChunkRenderer>();
+        const gridEventMap = new PrefabRef<GridEventMap>();
         const pointer = new PrefabRef<GridPointer>();
 
         return this.sceneBuilder
@@ -88,6 +90,14 @@ export class Bootstrapper extends BaseBootstrapper {
                     .getCollideMap(collideMap)
                     .getObjectCollideMap(objectCollideMap)
                     .make())
+
+                
+                .withChild(instantiater.buildGameObject("event")
+                    .withComponent(GridEventMap, c => {
+                        c.showEvents = true;
+                        c.addEvent(-2, -5, () => console.log("test"));
+                    })
+                    .getComponent(GridEventMap, gridEventMap))
                     
                 .withChild(instantiater.buildPrefab("objects", ObjectsPrefab)
                     .withObjectCollideMap(objectCollideMap).make()))
@@ -97,6 +107,7 @@ export class Bootstrapper extends BaseBootstrapper {
                 .withCollideMap(objectCollideMap)
                 .withCollideMap(collideTilemap)
                 .withCollideMap(collideTilemap2)
+                .withGridEventMap(gridEventMap)
                 .withGridPointer(pointer)
                 .withGridPosition(new PrefabRef(LastPositionSaver.loadPosition()))
                 .make()
