@@ -35,8 +35,9 @@ module.exports = {
         })
     ],
     devServer: {
-        host: "localhost",
-        port: 5500
+        host: "0.0.0.0",
+        allowedHosts: "all",
+        port: 20310
     },
     mode: "development"
 };
