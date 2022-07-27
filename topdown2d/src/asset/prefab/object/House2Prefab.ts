@@ -1,21 +1,12 @@
-import { AsyncImageLoader, CssSpriteAtlasRenderer, GridCollider } from "the-world-engine";
-import { Vector2 } from "three/src/Three";
+import { CssHtmlElementRenderer, CssSpriteAtlasRenderer, GameObjectBuilder, GridCollider } from "the-world-engine";
+import { Vector2, Vector3 } from "three/src/Three";
 
 import OverworldTileset from "../../image/Overworld_Tileset.png";
-import { ImageCrop } from "../../script/ImageCrop";
 import { StaticObjectPrefabBase } from "./StaticObjectPrefabBase";
 
 export class House2Prefab extends StaticObjectPrefabBase {
     protected rendererInitializer(c: CssSpriteAtlasRenderer): void {
-        AsyncImageLoader.loadImageFromPath(OverworldTileset).then(image => {
-            const croppedImage = ImageCrop.crop(image, 16 * 9, 16 * 5, 16 * 5, 16 * 4);
-            c.asyncSetImageFromPath(croppedImage, 1, 1);
-            c.imageIndex = 0;
-            c.imageWidth = 5;
-            c.imageHeight = 4;
-            c.centerOffset = new Vector2(0, 0.453);
-            c.filter.brightness = 1.5;
-        });
+        c.destroy();
     }
 
     protected colliderInitializer(c: GridCollider): void {
@@ -23,5 +14,25 @@ export class House2Prefab extends StaticObjectPrefabBase {
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1]
         ], -2, 1);
+    }
+
+    public override make(): GameObjectBuilder {
+        return super.make()
+            .withChild(this.instantiater.buildGameObject("custom-sprite",
+                undefined, undefined, new Vector3().setScalar(1 / 16))
+                .withComponent(CssHtmlElementRenderer, c => {
+                    const img = document.createElement("img");
+                    img.src = OverworldTileset;
+                    img.style.objectFit = "none";
+                    img.style.imageRendering = "pixelated";
+                    img.style.objectPosition = -16 * 9 + "px " + -16 * 5 + "px";
+                    c.element = img;
+                    c.viewScale = 1;
+                    c.elementWidth = 16 * 5;
+                    c.elementHeight = 16 * 4;
+                    c.centerOffset = new Vector2(0, 0.453);
+                    c.filter.brightness = 1.5;
+                }))
+        ;
     }
 }
