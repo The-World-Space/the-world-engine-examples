@@ -3,6 +3,7 @@ import {
     Vector3
 } from "three/src/Three";
 
+import { CampfirePrefab } from "../object/CampfirePrefab";
 import { House1Prefab } from "../object/House1Prefab";
 import { House2Prefab } from "../object/House2Prefab";
 import { Tree1Prefab } from "../object/Tree1Prefab";
@@ -42,6 +43,9 @@ export class ObjectsPrefab extends Prefab {
                 .withObjectCollideMap(this._objectCollideMap).make())
 
             .withChild(instantiater.buildPrefab("house2", House2Prefab, new Vector3(-5, -5, 0))
+                .withObjectCollideMap(this._objectCollideMap).make())
+
+            .withChild(instantiater.buildPrefab("campfire", CampfirePrefab, new Vector3(4, 1, 0))
                 .withObjectCollideMap(this._objectCollideMap).make())
         ;
     }    

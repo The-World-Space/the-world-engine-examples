@@ -54,7 +54,7 @@ export class Bootstrapper extends BaseBootstrapper {
                         .getCollideTilemap(collideTilemap2).make())
 
                     .withChild(instantiater.buildGameObject("test")
-                        .active(true)
+                        .active(false)
                         .withComponent(CssTilemapChunkRenderer, c => {
                             c.chunkSize = 15;
                             c.filter.brightness = 1.5;
