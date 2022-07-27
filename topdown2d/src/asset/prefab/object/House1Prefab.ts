@@ -6,7 +6,7 @@ import { StaticObjectPrefabBase } from "./StaticObjectPrefabBase";
 
 export class House1Prefab extends StaticObjectPrefabBase {
     protected rendererInitializer(c: CssSpriteAtlasRenderer): void {
-        c.asyncSetImageFromPath(OverworldTileset, 13 / 5, 18 / 6);
+        c.asyncSetImageFromPath(OverworldTileset, 18 / 6, 13 / 5);
         c.imageIndex = 2;
         c.imageWidth = 6;
         c.imageHeight = 5;
@@ -18,6 +18,6 @@ export class House1Prefab extends StaticObjectPrefabBase {
         c.addColliderFromTwoDimensionalArray([
             [1, 1, 1, 1],
             [1, 1, 1, 1, 1]
-        ], -2, 0);
+        ], -2, 1);
     }
 }

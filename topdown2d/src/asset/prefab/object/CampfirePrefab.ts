@@ -5,7 +5,7 @@ import { StaticObjectPrefabBase } from "./StaticObjectPrefabBase";
 
 export class CampfirePrefab extends StaticObjectPrefabBase {
     protected rendererInitializer(c: CssSpriteAtlasRenderer): void {
-        c.asyncSetImageFromPath(BonfirePropLit, 1, 5);
+        c.asyncSetImageFromPath(BonfirePropLit, 5, 1);
         c.imageWidth = 1;
         c.imageHeight = 1;
     }
@@ -13,7 +13,7 @@ export class CampfirePrefab extends StaticObjectPrefabBase {
     protected colliderInitializer(c: GridCollider): void {
         c.addColliderFromTwoDimensionalArray([
             [1]
-        ], 0, 1);
+        ], 0, 0);
     }
 
     public override make(): GameObjectBuilder {

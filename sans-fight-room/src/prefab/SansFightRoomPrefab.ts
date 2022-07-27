@@ -13,7 +13,8 @@ import {
     Prefab,
     PrefabRef,
     GridCollider,
-    GridObjectCollideMap
+    GridObjectCollideMap,
+    AsyncImageLoader
 } from "the-world-engine";
 import SansFightRoomTileAtlas from "../asset/room_sanscorridor.png";
 import SansBlack from "../asset/Sans black.png";
@@ -43,14 +44,12 @@ export class SansFightRoomPrefab extends Prefab {
 
                 .withChild(instantiater.buildGameObject("floor", new Vector3(0, 0, -1))
                     .withComponent(CssTilemapChunkRenderer, c => {
-                        const tilemap3 = new Image();
-                        tilemap3.src = SansFightRoomTileAtlas;
-
-                        c.imageSources = [new TileAtlasItem(tilemap3, 3, 20)];
                         c.pointerEvents = false;
-                        
-                        tilemap3.onload = () => {
-                            tilemap3.onload = null;
+                        AsyncImageLoader.loadImageFromPath(SansFightRoomTileAtlas).then(tilemap3 => {
+                            if(!c.exists) return;
+
+                            c.imageSources = [new TileAtlasItem(tilemap3, 3, 20)];
+                            
                             const F = {i:0, a:57};
                             const G = {i:0, a:58};
                             const H = {i:0, a:48};
@@ -63,22 +62,17 @@ export class SansFightRoomPrefab extends Prefab {
                                 [G, F, G, F, G, F, G, H, I, H, K, J, K, H, I, H, K, J, K, H, I, H, K, J, K, H, I, H, K, J, K, H, I, H, K, J, K, H, I, H, K, J, K, H, I, H, K, J, K, H, I, H, G, F, G, F, G, F, G, F],
                                 [F, G, F, G, F, G, F, I, H, I, J, K, J, I, H, I, J, K, J, I, H, I, J, K, J, I, H, I, J, K, J, I, H, I, J, K, J, I, H, I, J, K, J, I, H, I, J, K, J, I, H, I, F, G, F, G, F, G, F, G],
                             ], -2, -2);
-                        };
+                        });
                     }))
 
                 .withChild(instantiater.buildGameObject("wall")
                     .withComponent(CssCollideTilemapChunkRenderer, c => {
-                        const tilemap3 = new Image();
-                        tilemap3.src = SansFightRoomTileAtlas;
-
-                        c.imageSources = [
-                            new TileAtlasItem(tilemap3, 3, 20)
-                        ];
                         c.pointerEvents = false;
+                        AsyncImageLoader.loadImageFromPath(SansFightRoomTileAtlas).then(tilemap3 => {
+                            if(!c.exists) return;
 
-                        tilemap3.onload = () => {
-                            tilemap3.onload = null;
-
+                            c.imageSources = [new TileAtlasItem(tilemap3, 3, 20)];
+                            
                             const W = {i:0, a:56};
                             const X = {i:0, a:50};
                             const Y = {i:0, a:59};
@@ -149,7 +143,7 @@ export class SansFightRoomPrefab extends Prefab {
                                     [{i: 0, a: 36}, {i: 0, a: 37}, {i: 0, a: 38}],
                                 ], p.x, p.y);
                             });
-                        };
+                        });
                     })
                     .getComponent(CssCollideTilemapChunkRenderer, this._colideTilemapChunkRenderer)))
 
@@ -189,14 +183,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(ZaxisSorter))
 
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 5, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 5, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -204,14 +198,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 11, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 11, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -219,14 +213,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 17, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 17, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -234,14 +228,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 23, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 23, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -249,14 +243,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 29, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 29, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -264,14 +258,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 35, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 35, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -279,14 +273,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 41, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 41, -2.01, 0))
                     //.active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;
@@ -294,14 +288,14 @@ export class SansFightRoomPrefab extends Prefab {
                     })
                     .withComponent(CameraRelativeZaxisSorter, c => c.offset = -6))
                     
-                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 47, -2, 0))
+                .withChild(instantiater.buildGameObject("pillar", new Vector3(0.5 + 47, -2.01, 0))
                     .active(false)
                     .withComponent(CssSpriteRenderer, c => {
                         c.asyncSetImageFromPath(Pillar);
                         c.centerOffset = new Vector2(0, 0.5);
                         c.pointerEvents = false;
                         c.imageWidth = 3.5;
-                        c.imageHeight = 10;
+                        c.imageHeight = 10.02;
                     })
                     .withComponent(ParallaxTranslater, c => {
                         c.offsetX = -0.7;

@@ -37,7 +37,7 @@ export class PlayerPrefab extends Prefab {
     public override make(): GameObjectBuilder {
         return this.gameObjectBuilder
             .withComponent(CssSpriteAtlasRenderer, c => {
-                c.asyncSetImageFromPath(CharSpriteSheet, 23, 26);
+                c.asyncSetImageFromPath(CharSpriteSheet, 26, 23);
                 c.imageWidth = 1;
                 c.imageHeight = 1;
                 c.viewScale = 1;

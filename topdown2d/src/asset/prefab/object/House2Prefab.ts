@@ -22,6 +22,6 @@ export class House2Prefab extends StaticObjectPrefabBase {
         c.addColliderFromTwoDimensionalArray([
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1]
-        ], -2, 0);
+        ], -2, 1);
     }
 }

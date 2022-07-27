@@ -24,6 +24,6 @@
         "webpack-dev-server": "^4.9.3"
     },
     "dependencies": {
-        "the-world-engine": "^0.4.18"
+        "the-world-engine": "^0.4.20"
     }
 }
