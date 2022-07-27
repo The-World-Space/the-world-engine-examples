@@ -11,8 +11,7 @@ import {
     PointerGridInputListener,
     PrefabRef,
     SceneBuilder,
-    TileAtlasItem,
-    TwoDimensionalStringMapper
+    TileAtlasItem
 } from "the-world-engine";
 import {
     Euler,
@@ -25,6 +24,7 @@ import OverworldTileset from "./image/Overworld_Tileset.png";
 import { CameraPrefab } from "./prefab/CameraPrefab";
 import { PlayerPrefab } from "./prefab/PlayerPrefab";
 import { BackgroundPrefab } from "./prefab/world/BackgroundPrefab";
+import { CollisionPrefab } from "./prefab/world/CollisionPrefab";
 import { DetailPrefab } from "./prefab/world/DetailPrefab";
 import { IslandPrefab } from "./prefab/world/IslandPrefab";
 import { ObjectsPrefab } from "./prefab/world/ObjectsPrefab";
@@ -100,25 +100,10 @@ export class Bootstrapper extends BaseBootstrapper {
                             c.row = 13;
                         })))
 
-                .withChild(instantiater.buildGameObject("collision")
-                    .withComponent(GridCollideMap, c => {
-                        c.showCollider = true;
-
-                        c.addColliderFromTwoDimensionalArray(
-                            TwoDimensionalStringMapper.map(
-                                [],
-                                /* eslint-disable @typescript-eslint/naming-convention */
-                                { " ": () => 0, "%": () => 1 }
-                                /* eslint-enable @typescript-eslint/naming-convention */
-                            ),
-                            0, 0
-                        );
-                    })
-                    .withComponent(GridObjectCollideMap, c => {
-                        c.showCollider = false;
-                    })
-                    .getComponent(GridCollideMap, collideMap)
-                    .getComponent(GridObjectCollideMap, objectCollideMap))
+                .withChild(instantiater.buildPrefab("collision", CollisionPrefab)
+                    .getCollideMap(collideMap)
+                    .getObjectCollideMap(objectCollideMap)
+                    .make())
                     
                 .withChild(instantiater.buildPrefab("objects", ObjectsPrefab)
                     .withObjectCollideMap(objectCollideMap).make()))
