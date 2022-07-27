@@ -11,9 +11,9 @@ export class House2Prefab extends StaticObjectPrefabBase {
             const croppedImage = ImageCrop.crop(image, 16 * 9, 16 * 5, 16 * 5, 16 * 4);
             c.asyncSetImageFromPath(croppedImage, 1, 1);
             c.imageIndex = 0;
-            c.imageWidth = 6;
-            c.imageHeight = 5;
-            c.centerOffset = new Vector2(0, 0.45);
+            c.imageWidth = 5;
+            c.imageHeight = 4;
+            c.centerOffset = new Vector2(0, 0.453);
             c.filter.brightness = 1.5;
         });
     }
