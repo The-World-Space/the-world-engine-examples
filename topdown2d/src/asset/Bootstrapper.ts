@@ -29,6 +29,7 @@ import { CollisionPrefab } from "./prefab/world/CollisionPrefab";
 import { DetailPrefab } from "./prefab/world/DetailPrefab";
 import { IslandPrefab } from "./prefab/world/IslandPrefab";
 import { ObjectsPrefab } from "./prefab/world/ObjectsPrefab";
+import { DialogController } from "./script/DialogController";
 import { DrawIndex } from "./script/DrawIndex";
 import { LastPositionSaver } from "./script/LastPositionSaver";
 
@@ -43,6 +44,7 @@ export class Bootstrapper extends BaseBootstrapper {
         const collideTilemap2 = new PrefabRef<CssCollideTilemapChunkRenderer>();
         const gridEventMap = new PrefabRef<GridEventMap>();
         const pointer = new PrefabRef<GridPointer>();
+        const dialogController = new PrefabRef<DialogController>();
 
         return this.sceneBuilder
             .withChild(instantiater.buildGameObject("world")
@@ -95,7 +97,9 @@ export class Bootstrapper extends BaseBootstrapper {
                 .withChild(instantiater.buildGameObject("event")
                     .withComponent(GridEventMap, c => {
                         c.showEvents = true;
-                        c.addEvent(-2, -5, () => console.log("test"));
+                        c.addEvent(-2, -5, () => {
+                            if (dialogController.ref) dialogController.ref.showMessage("Hello World!");
+                        });
                     })
                     .getComponent(GridEventMap, gridEventMap))
                     
@@ -126,8 +130,10 @@ export class Bootstrapper extends BaseBootstrapper {
                 new Vector3(0, 0, 10),
                 new Quaternion()
                     .setFromEuler(new Euler(-10 * MathUtils.DEG2RAD, -10 * MathUtils.DEG2RAD, 0))
-                    .set(0, 0, 0, 1)
-            ).withTarget(player).make())
+                    .set(0, 0, 0, 1))
+                .withTarget(player)
+                .getDialogController(dialogController)
+                .make())
         ;
     }
 }
