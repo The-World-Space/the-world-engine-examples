@@ -29,6 +29,8 @@ export class CameraPrefab extends Prefab {
     }
 
     public override make(): GameObjectBuilder {
+        const camera = new PrefabRef<Camera>();
+
         return this.gameObjectBuilder
             .withComponent(Camera, c => {
                 c.cameraType = CameraType.Orthographic;
@@ -45,6 +47,7 @@ export class CameraPrefab extends Prefab {
             .withComponent(TrackCameraController, c => {
                 c.setTrackTarget(this._target.ref!);
             })
+            .getComponent(Camera, camera)
             
             .withChild(this.instantiater.buildGameObject("game-ui", new Vector3(0, -7, 2))
                 .withComponent(CssHtmlElementRenderer, c => {
@@ -87,7 +90,9 @@ export class CameraPrefab extends Prefab {
                     c.elementHeight = 2.5;
                     c.element = div;
                 })
-                .withComponent(DialogController)
+                .withComponent(DialogController, c => {
+                    c.camera = camera.ref;
+                })
                 .getComponent(DialogController, this._dialogController))
         ;
     }

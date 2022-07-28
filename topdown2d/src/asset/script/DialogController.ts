@@ -1,4 +1,4 @@
-import { Component, Coroutine, CoroutineIterator, CssHtmlElementRenderer, WaitUntil } from "the-world-engine";
+import { Camera, Component, Coroutine, CoroutineIterator, CssHtmlElementRenderer } from "the-world-engine";
 import { MathUtils } from "three/src/Three"; 
 
 export class DialogController extends Component {
@@ -6,6 +6,7 @@ export class DialogController extends Component {
     public override readonly requiredComponents = [CssHtmlElementRenderer];
 
     private _dialogUi: CssHtmlElementRenderer|null = null;
+    public camera: Camera|null = null;
     private _transitionCoroutine: Coroutine|null = null;
     private _textAnimationCoroutine: Coroutine|null = null;
     private _isShowing = false;
@@ -14,18 +15,19 @@ export class DialogController extends Component {
     private _initializeFunction: (() => void)|null = null;
 
     private readonly onScreenResize = (): void => {
-        if (this._dialogUi) {
-            const screen = this.engine.screen;
-            const aspectRatio = screen.width / screen.height;
-            this.startCoroutine(this.getViewSize((viewSize: number) => {
-                const viewSize2 = viewSize * 2;
-                this._dialogUi!.elementWidth = Math.min(this._maxWidth, viewSize2 * aspectRatio - 1);
-            }));
-        }
+        if (!this._dialogUi) return;
+        const screen = this.engine.screen;
+        const aspectRatio = screen.width / screen.height;
+
+        const viewSize = this.camera!.viewSize;
+        this._dialogUi!.elementWidth = Math.min(this._maxWidth, viewSize * 2 * aspectRatio - 1);
     };
 
     public awake(): void {
         this._dialogUi = this.gameObject.getComponent(CssHtmlElementRenderer)!;
+        if (this.camera === null) {
+            throw new Error("DialogController requires a camera component");
+        }
         this._dialogUi.htmlElementEventHandler!.onmousedown = (): void => {
             this.hideUi();
         };
@@ -40,6 +42,18 @@ export class DialogController extends Component {
 
     public onDisable(): void {
         this.engine.screen.onResize.removeListener(this.onScreenResize);
+    }
+
+    private _lastViewSize = 0;
+
+    public update(): void {
+        const viewSize = this.camera!.viewSize;
+        if (viewSize !== this._lastViewSize) {
+            this.onScreenResize();
+            if (this._transitionCoroutine) this.stopCoroutine(this._transitionCoroutine);
+            this.transform.localPosition.y = this._isShowing ? -viewSize + 1.5 : -viewSize - 1.5;
+            this._lastViewSize = viewSize;
+        }
     }
 
     public showMessage(message: string): void {
@@ -68,10 +82,7 @@ export class DialogController extends Component {
         this._isShowing = true;
 
         if (this._transitionCoroutine) this.stopCoroutine(this._transitionCoroutine);
-        
-        this.startCoroutine(this.getViewSize((viewSize: number) => {
-            this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-viewSize + 1.5));
-        }));
+        this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-this.camera!.viewSize + 1.5));
     }
 
     private hideUi(): void {
@@ -79,24 +90,16 @@ export class DialogController extends Component {
         this._isShowing = false;
 
         if (this._transitionCoroutine) this.stopCoroutine(this._transitionCoroutine);
-
-        this.startCoroutine(this.getViewSize((viewSize: number) => {
-            this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-viewSize - 1.5));
-        }));
-    }
-
-    private *getViewSize(callback: (viewSize: number) => void): CoroutineIterator {
-        yield new WaitUntil(() => this.engine.cameraContainer.camera !== null);
-        callback(this.engine.cameraContainer.camera!.viewSize);
+        this._transitionCoroutine = this.startCoroutine(this.moveUiAnim(-this.camera!.viewSize - 1.5));
     }
 
     private *moveUiAnim(targetY: number): CoroutineIterator {
-        let currentTime = 0;
-        while (currentTime < 1) {
-            this.transform.localPosition.y = MathUtils.damp(this.transform.localPosition.y, targetY, 4, currentTime);
+        const localPosition = this.transform.localPosition;
+        while (Math.abs(localPosition.y - targetY) > 0.01) {
+            const deltaTime = this.engine.time.deltaTime;
+            localPosition.y = MathUtils.damp(localPosition.y, targetY, 8, deltaTime);
             yield null;
-            currentTime += this.engine.time.deltaTime;
         }
-        this.transform.localPosition.y = targetY;
+        localPosition.y = targetY;
     }
 }
