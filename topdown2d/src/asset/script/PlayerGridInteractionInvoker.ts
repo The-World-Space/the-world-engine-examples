@@ -1,14 +1,14 @@
-import { Component, Direction, Directionable, GridEventMap } from "the-world-engine";
+import { Component, Directable, Direction, GridEventMap } from "the-world-engine";
 
 export class PlayerGridInteractionInvoker extends Component {
     public override readonly disallowMultipleComponent = true;
-    public override readonly requiredComponents = [Directionable];
+    public override readonly requiredComponents = [Directable];
     
     private readonly _collideSize = 0.5;
     private readonly _tileWidth = 1;
     private readonly _tileHeight = 1;
     private readonly _gridEventMaps: GridEventMap[] = [];
-    private _directionable: Directionable|null = null;
+    private _directable: Directable|null = null;
 
     private readonly onKeyDown = (e: KeyboardEvent): void => {
         if (e.key.toLowerCase() !== "e") return;
@@ -17,7 +17,7 @@ export class PlayerGridInteractionInvoker extends Component {
         
         let xOffset;
         let yOffset;
-        switch (this._directionable!.direction) {
+        switch (this._directable!.direction) {
         case Direction.Up:
             xOffset = 0;
             yOffset = this._tileHeight;
@@ -49,7 +49,7 @@ export class PlayerGridInteractionInvoker extends Component {
     };
 
     public awake(): void {
-        this._directionable = this.gameObject.getComponent(Directionable);
+        this._directable = this.gameObject.getComponent(Directable);
     }
 
     public onEnable(): void {
