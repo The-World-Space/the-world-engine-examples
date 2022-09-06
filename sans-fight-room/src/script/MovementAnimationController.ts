@@ -1,22 +1,22 @@
-import { Component, ComponentConstructor, SpriteAtlasAnimator, Direction, Directionable } from "the-world-engine";
+import { Component, ComponentConstructor, SpriteAtlasAnimator, Direction, Directable } from "the-world-engine";
 
 export class MovementAnimationController extends Component {
     protected readonly _disallowMultipleComponent: boolean = true;
-    protected readonly _requiredComponents: ComponentConstructor[] = [Directionable, SpriteAtlasAnimator];
+    protected readonly _requiredComponents: ComponentConstructor[] = [Directable, SpriteAtlasAnimator];
 
-    private _directionable: Directionable|null = null;
+    private _directable: Directable|null = null;
     private _spriteAtlasAnimator: SpriteAtlasAnimator|null = null;
     private _lastDirection: Direction = Direction.Down;
     private _lastIsMoving = false;
 
     protected awake(): void {
-        this._directionable = this.gameObject.getComponent(Directionable);
+        this._directable = this.gameObject.getComponent(Directable);
         this._spriteAtlasAnimator = this.gameObject.getComponent(SpriteAtlasAnimator);
     }
 
     public update(): void {
-        const direction = this._directionable!.direction;
-        const isMoving = this._directionable!.isMoving;
+        const direction = this._directable!.direction;
+        const isMoving = this._directable!.isMoving;
         if (isMoving) {
             if (direction === Direction.Up) {
                 if (this._lastIsMoving !== isMoving || this._lastDirection !== direction) {
