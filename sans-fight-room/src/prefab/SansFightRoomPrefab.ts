@@ -19,7 +19,7 @@ import {
 import SansFightRoomTileAtlas from "../asset/room_sanscorridor.png";
 import SansBlack from "../asset/Sans black.png";
 import Pillar from "../asset/spr_foregroundpillar.png";
-import { CssSpriteAtlasRenderMode } from "the-world-engine/dist/engine/script/render/CssSpriteAtlasRenderer";
+import { CssSpriteAtlasRenderMode } from "the-world-engine/dist/esm/engine/script/render/CssSpriteAtlasRenderer";
 
 export class SansFightRoomPrefab extends Prefab {
     private _colideTilemapChunkRenderer = new PrefabRef<CssCollideTilemapChunkRenderer>();
